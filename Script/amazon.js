@@ -1,6 +1,8 @@
+import { cart, addtocarpopup, addtocart, updateCart } from "../data/cart.js";
+import { products } from "../data/products.js";
 let htmlCodeFroPoduct = ""
 products.forEach((product) => {
-    htmlCodeFroPoduct += `
+  htmlCodeFroPoduct += `
     <div class="product-container">
           <div class="product-image-container">
             <img class="product-image"
@@ -24,7 +26,7 @@ products.forEach((product) => {
           </div>
 
           <div class="product-quantity-container">
-            <select classs="js-product-quantity-${product.id}">
+            <select class="js-product-quantity-${product.id}">
               <option selected value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -39,10 +41,9 @@ products.forEach((product) => {
           </div>
 
           <div class="product-spacer"></div>
-            <div>Added to Card</div>
-          <div class="added-to-cart">
-            <img src="images/icons/checkmark.png">
-            Added
+            
+          <div class="added-to-cart js-added-to-cart-${product.id}">
+            
           </div>
 
           <button class="add-to-cart-button button-primary js-add-to-cart"
@@ -52,39 +53,18 @@ products.forEach((product) => {
         </div>
     `
 })
-let cartQuantity = 0
+
+
 document.querySelector('.js-product-grid')
-    .innerHTML = htmlCodeFroPoduct
+  .innerHTML = htmlCodeFroPoduct
 let adddedToCartProduct = []
 document.querySelectorAll('.js-add-to-cart')
-    .forEach((button, index) => {
-        button.addEventListener("click", () => {
-            const productId = button.dataset.productId
-            let matchingItem;
-            cart.forEach((item, index) => {
-                if (productId === item.id) {
-                    matchingItem = item
-                }
-            })
+  .forEach((button, index) => {
+    button.addEventListener("click", () => {
+      const productId = button.dataset.productId
+      addtocart(productId)
+      addtocarpopup(productId)
+      updateCart(productId)
 
-            if (matchingItem) {
-                matchingItem.quantity++;
-                cartQuantity++;
-            }
-            else {
-                cartQuantity++;
-                cart.push({
-                    id: productId,
-                    quantit: 1
-                }
-
-                )
-
-            }
-
-            document.querySelector('.cart-quantity')
-                .innerHTML = `${cartQuantity}`
-
-        })
     })
-
+  })
