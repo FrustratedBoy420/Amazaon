@@ -1,5 +1,6 @@
 import { cart, addtocarpopup, addtocart, updateCart } from "../data/cart.js";
 import { products } from "../data/products.js";
+import { totalitems } from "./utils/utils.js";
 let htmlCodeFroPoduct = ""
 products.forEach((product) => {
   htmlCodeFroPoduct += `
@@ -68,3 +69,5 @@ document.querySelectorAll('.js-add-to-cart')
 
     })
   })
+document.querySelector('.js-cart-quantity')
+  .innerHTML = `${totalitems(cart)}`
