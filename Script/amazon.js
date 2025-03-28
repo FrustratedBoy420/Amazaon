@@ -1,9 +1,13 @@
 import { cart, addtocarpopup, addtocart, updateCart } from "../data/cart.js";
-import { products } from "../data/products.js";
+import { products, loadproduct } from "../data/products.js";
 import { totalitems } from "./utils/utils.js";
-let htmlCodeFroPoduct = ""
-products.forEach((product) => {
-  htmlCodeFroPoduct += `
+
+
+loadproduct(renderhomepage)
+function renderhomepage() {
+  let htmlCodeFroPoduct = ""
+  products.forEach((product) => {
+    htmlCodeFroPoduct += `
     <div class="product-container">
           <div class="product-image-container">
             <img class="product-image"
@@ -41,7 +45,9 @@ products.forEach((product) => {
             </select>
           </div>
 
-          <div class="product-spacer"></div>
+          <div class="product-spacer">
+          ${product.extraInfoHtml()}
+          </div>
             
           <div class="added-to-cart js-added-to-cart-${product.id}">
             
@@ -53,21 +59,22 @@ products.forEach((product) => {
           </button>
         </div>
     `
-})
-
-
-document.querySelector('.js-product-grid')
-  .innerHTML = htmlCodeFroPoduct
-let adddedToCartProduct = []
-document.querySelectorAll('.js-add-to-cart')
-  .forEach((button, index) => {
-    button.addEventListener("click", () => {
-      const productId = button.dataset.productId
-      addtocart(productId)
-      addtocarpopup(productId)
-      updateCart(productId)
-
-    })
   })
-document.querySelector('.js-cart-quantity')
-  .innerHTML = `${totalitems(cart)}`
+
+
+  document.querySelector('.js-product-grid')
+    .innerHTML = htmlCodeFroPoduct
+  let adddedToCartProduct = []
+  document.querySelectorAll('.js-add-to-cart')
+    .forEach((button, index) => {
+      button.addEventListener("click", () => {
+        const productId = button.dataset.productId
+        addtocart(productId)
+        addtocarpopup(productId)
+        updateCart(productId)
+
+      })
+    })
+  document.querySelector('.js-cart-quantity')
+    .innerHTML = `${totalitems(cart)}`
+}
