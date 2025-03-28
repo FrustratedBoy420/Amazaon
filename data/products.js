@@ -45,7 +45,7 @@ class Clothing extends product {
 export let products = []
 
 export function loadproductFetch() {
-  const promise=fetch('https://supersimplebackend.dev/products').then((response) => {
+  const promise = fetch('https://supersimplebackend.dev/products').then((response) => {
     return response.json()
   }).then((productData) => {
     products = productData.map((productdetail) => {
@@ -54,11 +54,14 @@ export function loadproductFetch() {
       }
       return new product(productdetail)
     })
+  }).catch((error) => {
+    alert(`Please Came With Your Personal Hotspot`)
+
   })
-    return promise;
+  return promise;
 }
 
-loadproductFetch().then(()=>{
+loadproductFetch().then(() => {
   console.log("good Work")
 })
 
@@ -73,6 +76,10 @@ export function loadproduct(func) {
       return new product(productdetail)
     })
     func()
+  })
+
+  xhr.addEventListener('error', (error) => {
+    alert(`Please Came With Your Personal Hotspot`)
   })
   xhr.open('GET', 'https://supersimplebackend.dev/products')
   xhr.send()
