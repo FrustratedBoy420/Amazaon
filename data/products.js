@@ -54,9 +54,6 @@ export function loadproductFetch() {
       }
       return new product(productdetail)
     })
-  }).catch((error) => {
-    alert(`Please Came With Your Personal Hotspot`)
-
   })
   return promise;
 }

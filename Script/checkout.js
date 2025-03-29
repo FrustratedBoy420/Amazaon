@@ -5,16 +5,20 @@ import { loadproduct, loadproductFetch } from "../data/products.js";
 import { loadcart } from "../data/cart.js";
 
 async function loadpage() {
-    console.log("done Buddy");
+    try {
+        console.log("done Buddy");
 
-    await loadproductFetch()
+        await loadproductFetch()
 
 
-    await new Promise((resolve) => {
-        loadcart(() => {
-            resolve();
+        await new Promise((resolve) => {
+            loadcart(() => {
+                resolve();
+            })
         })
-    })
+    } catch (error) {
+        alert(`Please Came With Your Personal Hotspot`)
+    }
     renderOrderSummary()
     renderPaymentSummary();
 }
